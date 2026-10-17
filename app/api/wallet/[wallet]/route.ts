@@ -156,12 +156,7 @@ function ineligibleReasonLabel(reason: string | null | undefined) {
   return "Not eligible - holder-state rule";
 }
 
-export async function GET(_request: Request, context: { params: Promise<{ wallet: string }> }) {
-  return new NextResponse("This service has been permanently disabled.", {
-    status: 410,
-    headers: { "cache-control": "no-store" }
-  });
-
+async function legacyGET(_request: Request, context: { params: Promise<{ wallet: string }> }) {
   const { wallet: walletParam } = await context.params;
   let wallet: PublicKey;
 
@@ -253,4 +248,11 @@ export async function GET(_request: Request, context: { params: Promise<{ wallet
       history: []
     });
   }
+}
+
+export async function GET() {
+  return new NextResponse("This service has been permanently disabled.", {
+    status: 410,
+    headers: { "cache-control": "no-store" }
+  });
 }
