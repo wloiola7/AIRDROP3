@@ -157,6 +157,11 @@ function ineligibleReasonLabel(reason: string | null | undefined) {
 }
 
 export async function GET(_request: Request, context: { params: Promise<{ wallet: string }> }) {
+  return new NextResponse("This service has been permanently disabled.", {
+    status: 410,
+    headers: { "cache-control": "no-store" }
+  });
+
   const { wallet: walletParam } = await context.params;
   let wallet: PublicKey;
 

@@ -531,6 +531,11 @@ function durationLabel(startedAt: string | null, completedAt: string | null) {
 }
 
 export async function GET() {
+  return new NextResponse("This service has been permanently disabled.", {
+    status: 410,
+    headers: { "cache-control": "no-store" }
+  });
+
   const config = supabaseConfig();
   const pfpRewardWalletSol = await pfpRewardWalletBalanceSol();
   const sourceMint = sourceMintValue();

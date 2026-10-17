@@ -9,14 +9,12 @@ import { ScoutProvider } from "./scout-provider";
 
 const navigation = [
   { href: "/#rot-feed", label: "ROT FEED" },
-  { href: "/#timeline", label: "LORE.EXE" },
-  { href: "/#rewards", label: "REWARDS" }
+  { href: "/#timeline", label: "LORE.EXE" }
 ];
 
 function Header() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
-  const buyUrl = projectConfig.buyUrl || projectConfig.stonkUrl;
 
   useEffect(() => setOpen(false), [pathname]);
 
@@ -41,7 +39,6 @@ function Header() {
           {projectConfig.projectXUrl ? (
             <a className="scout-header-link scout-header-link--social" href={projectConfig.projectXUrl} target="_blank" rel="noopener noreferrer">X</a>
           ) : null}
-          <a className="scout-header-link scout-header-link--buy" href={buyUrl} target="_blank" rel="noopener noreferrer">GET ROT</a>
           <button className="scout-menu-button" type="button" onClick={() => setOpen((value) => !value)} aria-expanded={open} aria-controls="brainrot-mobile-nav" aria-label={open ? "Close menu" : "Open menu"}>
             {open ? <X size={20} /> : <Menu size={20} />}
           </button>
@@ -52,7 +49,6 @@ function Header() {
         <div className="scout-mobile-nav" id="brainrot-mobile-nav" onKeyDown={(event) => { if (event.key === "Escape") setOpen(false); }}>
           {navigation.map((item) => <Link href={item.href} key={item.href} onClick={() => setOpen(false)}>{item.label}</Link>)}
           {projectConfig.projectXUrl ? <a href={projectConfig.projectXUrl} target="_blank" rel="noopener noreferrer">BRAINROT X</a> : null}
-          <a href={buyUrl} target="_blank" rel="noopener noreferrer">BUY $BRAINROT</a>
         </div>
       ) : null}
     </header>
@@ -71,12 +67,10 @@ function Footer() {
       </div>
       <nav aria-label="Footer links">
         <Link href="/#rot-feed">Rot feed</Link>
-        <Link href="/rewards">Receipts</Link>
         <Link href="/docs">Docs.exe</Link>
-        <a href={projectConfig.stonkUrl} target="_blank" rel="noopener noreferrer">StonkFun</a>
       </nav>
       <p className="scout-footer__risk">
-        $NEURALINK is a tokenized exposure asset, not direct Neuralink stock. BRAINROT is independent and is not affiliated with or endorsed by Neuralink, PreStocks, or StonkFun. Rewards depend on StonkFun mechanics and are not guaranteed. Nothing here is financial advice.
+        BRAINROT reward and distribution services are disabled. Nothing here is financial advice.
       </p>
     </footer>
   );

@@ -1,11 +1,9 @@
 "use client";
 
-import Link from "next/link";
 import Image from "next/image";
 import { X } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
-import { projectConfig } from "./project-config";
 
 const CHARACTERS = [
   {
@@ -454,7 +452,7 @@ export function BrainrotView() {
           <span className="fever-kicker">WORLD WIDE WEB // CONDITION: TERMINAL</span>
           <h1 data-text="BRAINROT" aria-label="BRAINROT">BRAINROT</h1>
           <h2>THE INTERNET HAS A CONDITION.</h2>
-          <p>HOLD $BRAINROT. GET $NEURALINK.</p>
+          <p>BRAINROT. BRAIN OFF.</p>
         </div>
 
         <div className="fever-collage" aria-label="Brainrot character collage">
@@ -485,22 +483,6 @@ export function BrainrotView() {
       <RotFeed />
 
       <ScreenTimeReport />
-
-      <section className="fever-rewards" id="rewards">
-        <div className="fever-alert">THIS COULD HAVE BEEN AN EMAIL</div>
-        <h2>HOLD BRAINROT.<br />GET NEURALINK.<br /><span>BRAIN OFF.</span></h2>
-        <div className="fever-pipeline" aria-label="BRAINROT holder reward pipeline">
-          <div className="fever-orb fever-orb--brainrot"><img src="/brand/brainrot-logo.jpg" alt="BRAINROT" /><b>HOLD</b></div>
-          <div className="fever-wire"><i /><i /><i /><strong>STONK<br />DOES<br />THING</strong></div>
-          <div className="fever-brain" aria-hidden="true">🧠<span>⚡</span></div>
-          <div className="fever-wire fever-wire--reverse"><i /><i /><i /></div>
-          <div className="fever-orb fever-orb--neural"><b>$NEURALINK</b><small>REWARD</small></div>
-        </div>
-        <div className="fever-reward-links">
-          <a href={projectConfig.stonkUrl} target="_blank" rel="noopener noreferrer">STONKFUN</a>
-          <Link href="/rewards">REAL RECEIPTS ONLY</Link>
-        </div>
-      </section>
 
       <section className="fever-lore fever-lore--evolution fever-lore--history" id="timeline">
         <header>
@@ -542,18 +524,6 @@ export function BrainrotView() {
         </div>
       </section>
 
-      <section className="fever-pair" id="pair">
-        <span>UNAUTHORIZED CROSSOVER EVENT</span>
-        <h2>BRAINROT + NEURALINK</h2>
-        <div className="fever-collision">
-          <div className="fever-collision__token fever-collision__token--rot"><img src="/brand/brainrot-logo.jpg" alt="BRAINROT" /><b>$BRAINROT</b></div>
-          <strong>×</strong>
-          <div className="fever-collision__brain"><i>🧠</i><b>$NEURALINK</b></div>
-          <em>BOOM</em>
-        </div>
-        <h3>NO BRAIN MEETS MAXIMUM BRAIN.</h3>
-        <p>the prophecy is complete. the browser is overheating. please remain extremely online.</p>
-      </section>
     </div>
   );
 }
