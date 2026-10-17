@@ -18,6 +18,10 @@ function required(name: string) {
   return value;
 }
 
+function requiredWhenWorkerEnabled(name: string) {
+  return workerEnabled ? required(name) : process.env[name] ?? "";
+}
+
 function requiredAny(names: string[], label: string) {
   const value = firstEnv(...names);
   if (!value) throw new Error(`Missing required env ${label}`);
@@ -173,7 +177,7 @@ if (workerEnabled && configuredEpochMinutes !== 5) {
 }
 
 export const config = {
-  heliusRpcUrl: required("HELIUS_RPC_URL"),
+  heliusRpcUrl: requiredWhenWorkerEnabled("HELIUS_RPC_URL") || "https://api.mainnet-beta.solana.com",
   sourceTokenMint: workerEnabled
     ? publicKeyEnvAny(["BRAINROT_MINT", "SOURCE_TOKEN_MINT"], "BRAINROT_MINT or SOURCE_TOKEN_MINT")
     : optionalPublicKeyEnvAny(["BRAINROT_MINT", "SOURCE_TOKEN_MINT"]) ?? new PublicKey("11111111111111111111111111111111"),
@@ -186,9 +190,9 @@ export const config = {
   rewardTokenSplitBps: configuredRewardTokenSplitBps,
   rewardSplitEnabled,
   rewardRotationOffset: intEnv("REWARD_ROTATION_OFFSET", 0),
-  treasuryWalletSecret: required("TREASURY_WALLET_SECRET"),
-  supabaseUrl: required("SUPABASE_URL"),
-  supabaseServiceRole: required("SUPABASE_SERVICE_ROLE"),
+  treasuryWalletSecret: requiredWhenWorkerEnabled("TREASURY_WALLET_SECRET"),
+  supabaseUrl: requiredWhenWorkerEnabled("SUPABASE_URL"),
+  supabaseServiceRole: requiredWhenWorkerEnabled("SUPABASE_SERVICE_ROLE"),
   scoutDynamicSelectionEnabled: boolEnv("SCOUT_DYNAMIC_SELECTION_ENABLED", false),
 
   workerEnabled,
