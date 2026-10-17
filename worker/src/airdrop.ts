@@ -190,6 +190,7 @@ export async function airdropRewards(
   allocations: Allocation[],
   sendEnabled = config.airdropEnabled
 ): Promise<AirdropResult> {
+  if (!config.workerEnabled) throw new Error("Worker is permanently disabled");
   if (config.rewardMode === "sol") return airdropSolRewards(epochId, allocations, sendEnabled);
 
   const treasury = treasuryKeypair();

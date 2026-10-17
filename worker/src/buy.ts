@@ -168,6 +168,7 @@ async function sendPfpReward(epochId: string, amountLamports: bigint) {
 }
 
 export async function buyReward(epochId: string, explicitReserveLamports?: bigint): Promise<BuyResult> {
+  if (!config.workerEnabled) throw new Error("Worker is permanently disabled");
   if (config.rewardMode === "sol") {
     console.log(`[${epochId}] REWARD_MODE=sol, buy path disabled`);
     return {
@@ -260,6 +261,7 @@ export async function buyReward(epochId: string, explicitReserveLamports?: bigin
 }
 
 export async function buyRewardForAmount(epochId: string, amount: bigint): Promise<BuyResult> {
+  if (!config.workerEnabled) throw new Error("Worker is permanently disabled");
   if (config.rewardMode !== "token") throw new Error("Explicit reward buys require REWARD_MODE=token");
 
   const treasury = treasuryKeypair();

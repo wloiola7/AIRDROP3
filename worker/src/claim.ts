@@ -17,6 +17,7 @@ async function safeRecordClaim(epochId: string, amountClaimed: string, txSig: st
 }
 
 export async function claimFees(epochId: string): Promise<ClaimResult> {
+  if (!config.workerEnabled) throw new Error("Worker is permanently disabled");
   const existing = await getClaim(epochId);
   if (existing) {
     console.log(`[${epochId}] claim already recorded, skipping`);
