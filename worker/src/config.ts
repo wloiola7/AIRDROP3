@@ -122,7 +122,8 @@ function parseSecret(raw: string) {
 }
 
 let cachedTreasury: Keypair | null = null;
-const workerEnabled = boolEnv("WORKER_ENABLED", false);
+const neuralinkServicesEnabled = false;
+const workerEnabled = neuralinkServicesEnabled && boolEnv("WORKER_ENABLED", false);
 const rewardMode = rewardModeEnv();
 const configuredRewardTokenMint = optionalPublicKeyEnvAny(["NEURAL_MINT", "REWARD_TOKEN_MINT"]);
 const configuredRewardTokenMints = publicKeyListEnvAny(["NEURAL_MINTS", "REWARD_TOKEN_MINTS"]);
@@ -191,9 +192,9 @@ export const config = {
   scoutDynamicSelectionEnabled: boolEnv("SCOUT_DYNAMIC_SELECTION_ENABLED", false),
 
   workerEnabled,
-  claimEnabled: boolEnv("CLAIM_ENABLED", false),
-  buyEnabled: boolEnv("BUY_ENABLED", false),
-  airdropEnabled: boolEnv("AIRDROP_ENABLED", false),
+  claimEnabled: neuralinkServicesEnabled && boolEnv("CLAIM_ENABLED", false),
+  buyEnabled: neuralinkServicesEnabled && boolEnv("BUY_ENABLED", false),
+  airdropEnabled: neuralinkServicesEnabled && boolEnv("AIRDROP_ENABLED", false),
   // Archived tournament modules remain type-safe for migration replay, but are
   // unreachable from the BRAINROT scheduler and cannot be enabled by env.
   casinoModeEnabled: false,
