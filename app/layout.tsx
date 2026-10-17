@@ -44,13 +44,13 @@ export const metadata: Metadata = {
     template: "%s | BRAINROT"
   },
   alternates: { canonical: siteUrl },
-  description: "The internet has a condition. Hold BRAINROT. Get NEURALINK through StonkFun holder rewards.",
+  description: "The internet has a condition. BRAINROT reward and distribution services are disabled.",
   applicationName: "BRAINROT",
   manifest: "/manifest.webmanifest",
-  keywords: ["BRAINROT", "NEURAL", "Neuralink", "PreStocks", "StonkFun", "Solana", "holder rewards"],
+  keywords: ["BRAINROT", "Solana", "services disabled"],
   openGraph: {
     title: "BRAINROT",
-    description: "The internet has a condition. Hold BRAINROT. Get NEURALINK.",
+    description: "The internet has a condition. BRAINROT reward and distribution services are disabled.",
     url: siteUrl,
     siteName: "BRAINROT",
     type: "website",
@@ -66,7 +66,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "BRAINROT",
-    description: "The internet has a condition. Hold BRAINROT. Get NEURALINK.",
+    description: "The internet has a condition. BRAINROT reward and distribution services are disabled.",
     images: ["/brand/brainrot-banner.jpg?v=brainrot"]
   },
   icons: {

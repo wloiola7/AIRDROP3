@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, useCallback, useContext, useEffect, useMemo, useState } from "react";
+import { createContext, useCallback, useContext, useMemo, useState } from "react";
 import type { LoadState, ScoutStats } from "./types";
 import { projectConfig } from "./project-config";
 
@@ -23,7 +23,7 @@ const emptyStats: ScoutStats = {
   latestEligibleHolders: 0,
   latestTransaction: null,
   sourceMint: projectConfig.brainrotMint,
-  rewardMint: projectConfig.neuralMint,
+  rewardMint: null,
   eligibilityMin: null,
   maxHolderPct: null,
   emergencyPaused: false,
@@ -39,24 +39,6 @@ const emptyStats: ScoutStats = {
 
 const ScoutContext = createContext<ScoutContextValue | null>(null);
 
-async function getStats() {
-  const response = await fetch(projectConfig.rewardApiUrl ?? "/api/stats", { cache: "no-store" });
-  const payload = (await response.json().catch(() => ({}))) as ScoutStats & { error?: string };
-  if (!response.ok) throw new Error(payload.error || `Request failed (${response.status})`);
-
-  if (!projectConfig.leaderboardApiUrl) return payload;
-
-  try {
-    const leaderboardResponse = await fetch(projectConfig.leaderboardApiUrl, { cache: "no-store" });
-    if (!leaderboardResponse.ok) return payload;
-    const leaderboardPayload = await leaderboardResponse.json() as { leaderboard?: ScoutStats["leaderboard"] } | ScoutStats["leaderboard"];
-    const leaderboard = Array.isArray(leaderboardPayload) ? leaderboardPayload : leaderboardPayload.leaderboard;
-    return Array.isArray(leaderboard) ? { ...payload, leaderboard } : payload;
-  } catch {
-    return payload;
-  }
-}
-
 export function ScoutProvider({
   children,
   launchState
@@ -70,23 +52,11 @@ export function ScoutProvider({
   const [lastUpdated, setLastUpdated] = useState<Date | null>(null);
 
   const refresh = useCallback(async () => {
-    try {
-      const nextStats = await getStats();
-      setStats(nextStats);
-      setState(nextStats.totalEpochs ? "loaded" : "empty");
-      setError(null);
-      setLastUpdated(new Date());
-    } catch (nextError) {
-      setState((current) => current === "loaded" || current === "empty" || current === "stale" ? "stale" : "error");
-      setError(nextError instanceof Error ? nextError.message : "BRAINROT data connection failed");
-    }
+    setStats(emptyStats);
+    setState("empty");
+    setError(null);
+    setLastUpdated(null);
   }, []);
-
-  useEffect(() => {
-    void refresh();
-    const interval = window.setInterval(() => void refresh(), 15_000);
-    return () => window.clearInterval(interval);
-  }, [refresh]);
 
   const value = useMemo<ScoutContextValue>(
     () => ({ launchState, stats, state, error, lastUpdated, refresh }),
